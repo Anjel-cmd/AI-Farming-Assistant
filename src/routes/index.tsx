@@ -20,13 +20,13 @@ function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-secondary blur-3xl opacity-70"/>
-          <div className="absolute top-40 -left-24 w-80 h-80 rounded-full bg-accent blur-3xl opacity-60"/>
+          <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-secondary blur-3xl opacity-70" />
+          <div className="absolute top-40 -left-24 w-80 h-80 rounded-full bg-accent blur-3xl opacity-60" />
         </div>
         <div className="max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-20 grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up text-center lg:text-left flex flex-col items-center lg:items-start">
             <span className="inline-flex items-center gap-2 rounded-full bg-secondary text-primary-dark px-4 py-1.5 text-xs font-semibold">
-              <Sparkles size={14}/> AI-Powered Farming
+              <Sparkles size={14} /> AI-Powered Farming
             </span>
             <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-primary-dark">
               Smart AI Farming <span className="text-primary">Assistant</span>
@@ -36,10 +36,10 @@ function Home() {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <Link to="/scan" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-8 py-4 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition w-full sm:w-auto">
-                <ScanLine size={18}/> Start AI Scan
+                <ScanLine size={18} /> Start AI Scan
               </Link>
               <a href="#how" className="inline-flex items-center justify-center gap-2 rounded-full bg-card border border-border px-8 py-4 font-semibold hover:bg-secondary transition w-full sm:w-auto">
-                <BookOpen size={18}/> Learn More
+                <BookOpen size={18} /> Learn More
               </a>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-8 text-center sm:text-left">
@@ -49,28 +49,28 @@ function Home() {
             </div>
           </div>
 
-          {/* Hero visual */}
-          <div className="relative animate-fade-up" style={{ animationDelay: "120ms" }}>
+          {/* Hero visual - Hidden on mobile, shown on large screens */}
+          <div className="relative animate-fade-up hidden lg:block" style={{ animationDelay: "120ms" }}>
             <div className="relative aspect-square max-w-lg mx-auto">
-              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-primary to-primary-dark shadow-lift"/>
+              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-primary to-primary-dark shadow-lift" />
               <div className="absolute inset-4 rounded-[2rem] bg-card p-6 flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-sm font-semibold text-primary-dark">
-                    <Leaf size={16}/> Crop Scan
+                    <Leaf size={16} /> Crop Scan
                   </div>
                   <span className="text-xs text-muted-foreground">Live</span>
                 </div>
                 <div className="flex-1 rounded-2xl bg-secondary grid place-items-center relative overflow-hidden min-h-[300px]">
-  
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(46,125,50,0.25),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(2,136,209,0.2),transparent_60%)]" />
 
-                <img
-                  src={leafImage}
-                  alt="Leaf"
-                  className="w-full h-full object-cover relative z-10"
-                />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(46,125,50,0.25),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(2,136,209,0.2),transparent_60%)]" />
 
-              </div>
+                  <img
+                    src={leafImage}
+                    alt="Leaf"
+                    className="w-full h-full object-cover relative z-10"
+                  />
+
+                </div>
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="rounded-xl bg-secondary p-2"><div className="text-xs text-muted-foreground">Health</div><div className="font-bold text-primary-dark">96%</div></div>
                   <div className="rounded-xl bg-secondary p-2"><div className="text-xs text-muted-foreground">Risk</div><div className="font-bold text-primary-dark">Low</div></div>
@@ -78,10 +78,10 @@ function Home() {
                 </div>
               </div>
               <div className="absolute -top-4 -right-4 bg-card rounded-2xl shadow-lift px-4 py-3 flex items-center gap-2 animate-float" style={{ animationDelay: "1s" }}>
-                <CloudSun className="text-weather" size={20}/> <span className="text-sm font-semibold">28°C • Sunny</span>
+                <CloudSun className="text-weather" size={20} /> <span className="text-sm font-semibold">28°C • Sunny</span>
               </div>
               <div className="absolute -bottom-4 -left-4 bg-card rounded-2xl shadow-lift px-4 py-3 flex items-center gap-2 animate-float" style={{ animationDelay: "2s" }}>
-                <Bot className="text-primary" size={20}/> <span className="text-sm font-semibold">AI Diagnosis Ready</span>
+                <Bot className="text-primary" size={20} /> <span className="text-sm font-semibold">AI Diagnosis Ready</span>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ function Home() {
             <div key={s.n} className="group relative bg-card rounded-3xl p-6 border border-border hover:border-primary/30 hover:-translate-y-1 hover:shadow-soft transition-all">
               <div className="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-primary text-primary-foreground grid place-items-center text-sm font-bold shadow-soft">{s.n}</div>
               <div className="w-12 h-12 rounded-2xl bg-secondary text-primary grid place-items-center group-hover:bg-primary group-hover:text-primary-foreground transition">
-                <s.icon size={22}/>
+                <s.icon size={22} />
               </div>
               <h3 className="mt-4 font-semibold text-lg text-primary-dark">{s.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
@@ -130,7 +130,7 @@ function Home() {
               { icon: Zap, title: "Instant Results", desc: "Get diagnosis and advice in under 5 seconds." },
             ].map(f => (
               <div key={f.title} className="bg-card rounded-3xl p-6 border border-border hover:shadow-soft hover:-translate-y-1 transition-all">
-                <div className="w-12 h-12 rounded-2xl bg-secondary text-primary grid place-items-center"><f.icon size={22}/></div>
+                <div className="w-12 h-12 rounded-2xl bg-secondary text-primary grid place-items-center"><f.icon size={22} /></div>
                 <h3 className="mt-4 font-semibold text-primary-dark">{f.title}</h3>
                 <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
@@ -153,7 +153,7 @@ function Home() {
             { icon: ShieldCheck, title: "Smart Farming Support" },
           ].map(f => (
             <div key={f.title} className="flex items-center gap-4 bg-card rounded-2xl p-5 border border-border hover:shadow-soft transition">
-              <div className="w-12 h-12 rounded-xl bg-secondary text-primary grid place-items-center shrink-0"><f.icon size={22}/></div>
+              <div className="w-12 h-12 rounded-xl bg-secondary text-primary grid place-items-center shrink-0"><f.icon size={22} /></div>
               <div className="font-semibold text-primary-dark">{f.title}</div>
             </div>
           ))}
@@ -163,13 +163,13 @@ function Home() {
       {/* Final CTA */}
       <section className="max-w-5xl mx-auto px-6 pb-8">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary to-primary-dark p-10 sm:p-14 text-center text-primary-foreground shadow-lift">
-          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/10 blur-3xl"/>
-          <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl"/>
-          <Leaf className="mx-auto mb-4 opacity-90" size={40}/>
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
+          <Leaf className="mx-auto mb-4 opacity-90" size={40} />
           <h2 className="text-3xl sm:text-4xl font-bold">Ready to Scan Your Crop?</h2>
           <p className="mt-3 text-white/80 max-w-xl mx-auto">Get instant AI-powered diagnosis and grow smarter today.</p>
-          <Link to="/scan" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary-dark px-8 py-4 font-semibold hover:-translate-y-0.5 transition shadow-lift w-full sm:w-auto">
-            <ScanLine size={18}/> Start AI Scan
+          <Link to="/scan" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-primary-dark px-7 py-3.5 font-semibold hover:-translate-y-0.5 transition shadow-lift">
+            <ScanLine size={18} /> Start AI Scan
           </Link>
         </div>
       </section>
