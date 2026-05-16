@@ -24,30 +24,28 @@ function Home() {
           <div className="absolute top-40 -left-24 w-80 h-80 rounded-full bg-accent blur-3xl opacity-60"/>
         </div>
         <div className="max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-20 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="animate-fade-up">
+          <div className="animate-fade-up text-center lg:text-left flex flex-col items-center lg:items-start">
             <span className="inline-flex items-center gap-2 rounded-full bg-secondary text-primary-dark px-4 py-1.5 text-xs font-semibold">
               <Sparkles size={14}/> AI-Powered Farming
             </span>
-            <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-primary-dark">
+            <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-primary-dark">
               Smart AI Farming <span className="text-primary">Assistant</span>
             </h1>
             <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed">
               Detect crop diseases using AI, get treatment suggestions, and weather-based farming advice instantly.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/scan" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition">
-                <ScanLine size={18}/> Scan Your Crop
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <Link to="/scan" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-8 py-4 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition w-full sm:w-auto">
+                <ScanLine size={18}/> Start AI Scan
               </Link>
-              <a href="#how" className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-6 py-3 font-semibold hover:bg-secondary transition">
+              <a href="#how" className="inline-flex items-center justify-center gap-2 rounded-full bg-card border border-border px-8 py-4 font-semibold hover:bg-secondary transition w-full sm:w-auto">
                 <BookOpen size={18}/> Learn More
               </a>
             </div>
-            <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
-              <div><span className="text-2xl font-bold text-primary-dark">98%</span><div>Accuracy</div></div>
-              <div className="w-px h-10 bg-border"/>
-              <div><span className="text-2xl font-bold text-primary-dark">50k+</span><div>Scans</div></div>
-              <div className="w-px h-10 bg-border"/>
-              <div><span className="text-2xl font-bold text-primary-dark">12</span><div>Languages</div></div>
+            <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-8 text-center sm:text-left">
+              <div><span className="text-2xl sm:text-3xl font-bold text-primary-dark">98%</span><div className="text-xs text-muted-foreground">Accuracy</div></div>
+              <div><span className="text-2xl sm:text-3xl font-bold text-primary-dark">50k+</span><div className="text-xs text-muted-foreground">Scans</div></div>
+              <div><span className="text-2xl sm:text-3xl font-bold text-primary-dark">12</span><div className="text-xs text-muted-foreground">Languages</div></div>
             </div>
           </div>
 
@@ -170,7 +168,7 @@ function Home() {
           <Leaf className="mx-auto mb-4 opacity-90" size={40}/>
           <h2 className="text-3xl sm:text-4xl font-bold">Ready to Scan Your Crop?</h2>
           <p className="mt-3 text-white/80 max-w-xl mx-auto">Get instant AI-powered diagnosis and grow smarter today.</p>
-          <Link to="/scan" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-primary-dark px-7 py-3.5 font-semibold hover:-translate-y-0.5 transition shadow-lift">
+          <Link to="/scan" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary-dark px-8 py-4 font-semibold hover:-translate-y-0.5 transition shadow-lift w-full sm:w-auto">
             <ScanLine size={18}/> Start AI Scan
           </Link>
         </div>
