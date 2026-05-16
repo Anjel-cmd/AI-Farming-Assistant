@@ -492,7 +492,7 @@ function downloadReport() {
                 </div>
 
                 <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <h3 className="text-2xl font-bold text-destructive">
                       {result.diseaseName}
                     </h3>
@@ -546,7 +546,7 @@ function downloadReport() {
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-2 border-b border-border">
+          <div className="flex flex-nowrap overflow-x-auto gap-2 border-b border-border no-scrollbar">
             {TABS.map((t) => {
               const Icon =
                 t === "Organic"
@@ -561,7 +561,7 @@ function downloadReport() {
                 <button
                   key={t}
                   onClick={() => setTab(t)}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition ${
+                  className={`inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition whitespace-nowrap ${
                     active
                       ? "border-primary text-primary-dark"
                       : "border-transparent text-muted-foreground hover:text-foreground"
@@ -611,7 +611,7 @@ function downloadReport() {
       >
         <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-2xl" />
 
-        <div className="relative flex flex-wrap justify-between items-start gap-4">
+        <div className="relative flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2">
               <Cloud />
@@ -624,30 +624,30 @@ function downloadReport() {
           </div>
 
           <select
-  value={city}
-  onChange={(e) => setCity(e.target.value)}
-  className="bg-white/15 backdrop-blur border border-white/20 rounded-full px-4 py-2 text-sm font-medium text-white outline-none"
->
-  <option value="" className="text-foreground">
-    Select City
-  </option>
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="w-full sm:w-auto bg-white/15 backdrop-blur border border-white/20 rounded-full px-4 py-2 text-sm font-medium text-white outline-none"
+          >
+            <option value="" className="text-foreground">
+              Select City
+            </option>
 
-  {INDIAN_CITIES.map((c: string) => (
-    <option
-      key={c}
-      value={c}
-      className="text-foreground"
-    >
-      {c}
-    </option>
-  ))}
-</select>
+            {INDIAN_CITIES.map((c: string) => (
+              <option
+                key={c}
+                value={c}
+                className="text-foreground"
+              >
+                {c}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button
           onClick={loadWeather}
           disabled={weatherLoading}
-          className="mt-5 rounded-full bg-white text-black px-5 py-2 font-semibold disabled:opacity-50 flex items-center gap-2"
+          className="mt-5 w-full sm:w-auto rounded-full bg-white text-black px-6 py-2.5 font-semibold disabled:opacity-50 flex items-center justify-center gap-2 shadow-lift hover:bg-white/90 transition"
         >
           {weatherLoading && <Loader2 size={16} className="animate-spin" />}
           {weatherLoading ? "Fetching..." : "Get Weather Advice"}

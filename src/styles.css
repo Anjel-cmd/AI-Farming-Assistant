@@ -103,3 +103,6 @@
 }
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-fade-up { animation: fade-up 0.6s ease-out both; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
