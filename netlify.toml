@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build"
+  publish = "dist/client"
+
+[[redirects]]
+  from = "/groq/*"
+  to = "https://api.groq.com/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/weather/*"
+  to = "https://api.openweathermap.org/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
