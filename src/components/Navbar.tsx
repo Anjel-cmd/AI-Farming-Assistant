@@ -59,7 +59,7 @@ export function Navbar() {
               onClick={() => setLangOpen(!langOpen)}
               className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70 hover:bg-secondary transition"
             >
-              <Globe size={15} /> {i18n.language.toUpperCase()}
+              <Globe size={15} /> {(i18n.language || 'en').toUpperCase()}
             </button>
             {langOpen && (
               <div className="absolute right-0 mt-2 w-48 rounded-xl border border-border bg-card p-1 shadow-lg z-50 animate-fade-up">
@@ -68,7 +68,7 @@ export function Navbar() {
                     key={lang.code}
                     onClick={() => changeLanguage(lang.code)}
                     className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
-                      i18n.language === lang.code 
+                      (i18n.language || 'en') === lang.code 
                         ? "bg-primary text-primary-foreground font-medium" 
                         : "text-foreground/80 hover:bg-secondary"
                     }`}
