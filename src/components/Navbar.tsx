@@ -20,20 +20,23 @@ const languages = [
 ];
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/scan", label: "Scan Crop" },
-  { to: "/contact", label: "Contact" },
+  { to: "/", label: "nav_home" },
+  { to: "/scan", label: "nav_scan" },
+  { to: "/contact", label: "nav_contact" },
 ] as const;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const { i18n } = useTranslation();
+  const [mobileLangOpen, setMobileLangOpen] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     localStorage.setItem("language", lng);
     setLangOpen(false);
+    setMobileLangOpen(false);
+    setOpen(false);
   };
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-background/80 border-b border-border/60 shadow-[0_2px_12px_-8px_rgba(27,94,32,0.25)]">
@@ -51,7 +54,7 @@ export function Navbar() {
               activeProps={{ className: "px-4 py-2 rounded-full text-sm font-semibold text-primary-dark bg-secondary" }}
               activeOptions={{ exact: true }}
             >
-              {l.label}
+              {t(l.label)}
             </Link>
           ))}
           <div className="relative">
@@ -92,9 +95,38 @@ export function Navbar() {
                 className="px-4 py-3 rounded-xl text-sm font-medium hover:bg-secondary"
                 activeProps={{ className: "px-4 py-3 rounded-xl text-sm font-semibold bg-secondary text-primary-dark" }}
                 activeOptions={{ exact: true }}>
-                {l.label}
+                {t(l.label)}
               </Link>
             ))}
+            
+            <div className="px-4 py-3 border-t border-border mt-2">
+              <button 
+                onClick={() => setMobileLangOpen(!mobileLangOpen)}
+                className="w-full flex items-center justify-between rounded-xl text-sm font-medium hover:bg-secondary transition"
+              >
+                <div className="flex items-center gap-2 text-foreground/80">
+                  <Globe size={18} /> Language ({(i18n.language || 'en').toUpperCase()})
+                </div>
+              </button>
+              
+              {mobileLangOpen && (
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  {languages.map(lang => (
+                    <button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`text-left px-3 py-2.5 text-sm rounded-lg transition ${
+                        (i18n.language || 'en') === lang.code 
+                          ? "bg-primary text-primary-foreground font-medium" 
+                          : "text-foreground/80 bg-secondary/50 hover:bg-secondary"
+                      }`}
+                    >
+                      {lang.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
