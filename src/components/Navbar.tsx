@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Leaf, Menu, X, Globe } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 const languages = [
@@ -30,6 +30,19 @@ export function Navbar() {
   const [langOpen, setLangOpen] = useState(false);
   const [mobileLangOpen, setMobileLangOpen] = useState(false);
   const { t, i18n } = useTranslation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    if (langOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [langOpen]);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -57,7 +70,7 @@ export function Navbar() {
               {t(l.label)}
             </Link>
           ))}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button 
               onClick={() => setLangOpen(!langOpen)}
               className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70 hover:bg-secondary transition"
