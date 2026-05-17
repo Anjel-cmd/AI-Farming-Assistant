@@ -16,19 +16,19 @@ import as from './locales/as.json';
 import ur from './locales/ur.json';
 
 const resources = {
-  en: { translation: en },
-  hi: { translation: hi },
-  bn: { translation: bn },
-  ta: { translation: ta },
-  te: { translation: te },
-  mr: { translation: mr },
-  gu: { translation: gu },
-  ml: { translation: ml },
-  kn: { translation: kn },
-  pa: { translation: pa },
-  or: { translation: or },
-  as: { translation: as },
-  ur: { translation: ur },
+  en: { translation: (en as any).default || en },
+  hi: { translation: (hi as any).default || hi },
+  bn: { translation: (bn as any).default || bn },
+  ta: { translation: (ta as any).default || ta },
+  te: { translation: (te as any).default || te },
+  mr: { translation: (mr as any).default || mr },
+  gu: { translation: (gu as any).default || gu },
+  ml: { translation: (ml as any).default || ml },
+  kn: { translation: (kn as any).default || kn },
+  pa: { translation: (pa as any).default || pa },
+  or: { translation: (or as any).default || or },
+  as: { translation: (as as any).default || as },
+  ur: { translation: (ur as any).default || ur },
 };
 
 i18n
@@ -40,6 +40,9 @@ i18n
     interpolation: { escapeValue: false },
     ns: ['translation'],
     defaultNS: 'translation',
+    react: {
+      useSuspense: false,
+    },
   });
 
 export default i18n;
