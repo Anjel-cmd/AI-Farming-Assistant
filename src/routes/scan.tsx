@@ -20,6 +20,7 @@ import {
   Loader2,
 } from "lucide-react";
 import jsPDF from "jspdf";
+import { useTranslation } from "react-i18next";
 
 import {
   analyzeCropImage,
@@ -65,6 +66,7 @@ const TABS = ["Organic", "Chemical", "Prevention"] as const;
 
 
 function ScanPage() {
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -354,11 +356,11 @@ function downloadReport() {
         </span>
 
         <h1 className="mt-4 text-3xl sm:text-4xl font-bold text-primary-dark">
-          Scan & Analyze Your Crop
+          {t("scan_title")}
         </h1>
 
         <p className="mt-3 text-muted-foreground">
-          Upload your crop image and get instant AI-powered insights.
+          {t("scan_desc")}
         </p>
       </header>
 
@@ -382,11 +384,11 @@ function downloadReport() {
               </div>
 
               <h3 className="mt-4 font-semibold text-primary-dark text-lg">
-                Drag & drop crop image
+                {t("scan_drag_drop")}
               </h3>
 
               <p className="text-sm text-muted-foreground mt-1">
-                PNG or JPG, up to 10MB
+                {t("scan_upload_hint")}
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2 justify-center">
@@ -395,7 +397,7 @@ function downloadReport() {
                   className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 text-sm font-medium hover:bg-secondary transition"
                 >
                   <Upload size={16} />
-                  Upload
+                  {t("scan_upload_btn")}
                 </button>
 
                 <button
@@ -403,7 +405,7 @@ function downloadReport() {
                   className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 text-sm font-medium hover:bg-secondary transition"
                 >
                   <Camera size={16} />
-                  Camera
+                  {t("scan_camera_btn")}
                 </button>
               </div>
             </>
@@ -443,12 +445,12 @@ function downloadReport() {
                   className="animate-spin"
                   size={18}
                 />
-                Analyzing…
+                {t("scan_analyzing")}
               </>
             ) : (
               <>
                 <ScanLine size={18} />
-                Scan Your Crop
+                {t("scan_crop_btn")}
               </>
             )}
           </button>
@@ -476,11 +478,11 @@ function downloadReport() {
 
               <div>
                 <h3 className="text-xl font-bold text-success">
-                  Crop Looks Healthy!
+                  {t("scan_healthy")}
                 </h3>
 
                 <p className="text-muted-foreground mt-1">
-                  No diseases detected.
+                  {t("scan_healthy_desc")}
                 </p>
               </div>
             </div>
@@ -508,7 +510,7 @@ function downloadReport() {
 
                   <div className="mt-5">
                     <div className="flex justify-between text-sm font-medium mb-1.5">
-                      <span>Confidence</span>
+                      <span>{t("scan_confidence")}</span>
 
                       <span className="text-primary-dark">
                         {result.confidence}%
@@ -542,7 +544,7 @@ function downloadReport() {
             </div>
 
             <h2 className="text-xl font-bold text-primary-dark">
-              Treatment Advice
+              {t("scan_treatment_advice")}
             </h2>
           </div>
 
@@ -615,11 +617,11 @@ function downloadReport() {
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2">
               <Cloud />
-              Weather Advice
+              {t("scan_weather_advice")}
             </h2>
 
             <p className="text-white/80 text-sm mt-1">
-              Real-time conditions for your field
+              {t("scan_weather_desc")}
             </p>
           </div>
 
@@ -629,7 +631,7 @@ function downloadReport() {
             className="w-full sm:w-auto bg-white/15 backdrop-blur border border-white/20 rounded-full px-4 py-2 text-sm font-medium text-white outline-none"
           >
             <option value="" className="text-foreground">
-              Select City
+              {t("scan_select_city")}
             </option>
 
             {INDIAN_CITIES.map((c: string) => (
@@ -650,7 +652,7 @@ function downloadReport() {
           className="mt-5 w-full sm:w-auto rounded-full bg-white text-black px-6 py-2.5 font-semibold disabled:opacity-50 flex items-center justify-center gap-2 shadow-lift hover:bg-white/90 transition"
         >
           {weatherLoading && <Loader2 size={16} className="animate-spin" />}
-          {weatherLoading ? "Fetching..." : "Get Weather Advice"}
+          {weatherLoading ? t("scan_fetching") : t("scan_get_weather")}
         </button>
 
         <div className="relative mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -743,7 +745,7 @@ function downloadReport() {
           className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary transition"
         >
           <RefreshCw size={16} />
-          Scan Another Crop
+          {t("scan_another")}
         </button>
 
         <button
@@ -752,12 +754,12 @@ function downloadReport() {
           className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary disabled:opacity-50 transition"
         >
           <Download size={16} />
-          Download Report
+          {t("scan_download")}
         </button>
 
         <button className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:bg-primary-dark transition">
           <Save size={16} />
-          Save Result
+          {t("scan_save")}
         </button>
       </section>
     </div>

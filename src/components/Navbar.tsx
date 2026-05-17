@@ -1,6 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { Leaf, Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
+const languages = [
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'Hindi' },
+  { code: 'bn', label: 'Bengali' },
+  { code: 'te', label: 'Telugu' },
+  { code: 'mr', label: 'Marathi' },
+  { code: 'ta', label: 'Tamil' },
+  { code: 'gu', label: 'Gujarati' },
+  { code: 'ur', label: 'Urdu' },
+  { code: 'kn', label: 'Kannada' },
+  { code: 'or', label: 'Odia' },
+  { code: 'ml', label: 'Malayalam' },
+  { code: 'pa', label: 'Punjabi' },
+  { code: 'as', label: 'Assamese' }
+];
 
 const links = [
   { to: "/", label: "Home" },
@@ -10,6 +27,14 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng);
+    setLangOpen(false);
+  };
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-background/80 border-b border-border/60 shadow-[0_2px_12px_-8px_rgba(27,94,32,0.25)]">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -29,9 +54,31 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
-          <button className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70 hover:bg-secondary transition">
-            <Globe size={15} /> EN
-          </button>
+          <div className="relative">
+            <button 
+              onClick={() => setLangOpen(!langOpen)}
+              className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70 hover:bg-secondary transition"
+            >
+              <Globe size={15} /> {i18n.language.toUpperCase()}
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-border bg-card p-1 shadow-lg z-50 animate-fade-up">
+                {languages.map(lang => (
+                  <button
+                    key={lang.code}
+                    onClick={() => changeLanguage(lang.code)}
+                    className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
+                      i18n.language === lang.code 
+                        ? "bg-primary text-primary-foreground font-medium" 
+                        : "text-foreground/80 hover:bg-secondary"
+                    }`}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         <button onClick={() => setOpen(o => !o)} className="md:hidden p-2 rounded-lg hover:bg-secondary" aria-label="Menu">
           {open ? <X size={22}/> : <Menu size={22}/>}

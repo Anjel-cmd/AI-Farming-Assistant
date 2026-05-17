@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, Send, Leaf } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const { t } = useTranslation();
   const [sent, setSent] = useState(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -28,19 +30,19 @@ function Contact() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
       <header className="text-center max-w-2xl mx-auto animate-fade-up">
         <span className="inline-flex items-center gap-2 rounded-full bg-secondary text-primary-dark px-4 py-1.5 text-xs font-semibold">
-          <Leaf size={14}/> We'd love to hear from you
+          <Leaf size={14}/> {t("contact_badge")}
         </span>
-        <h1 className="mt-4 text-3xl sm:text-4xl font-bold text-primary-dark">Get in Touch</h1>
-        <p className="mt-3 text-muted-foreground">Have questions, feedback, or want to partner with us? Reach out.</p>
+        <h1 className="mt-4 text-3xl sm:text-4xl font-bold text-primary-dark">{t("contact_title")}</h1>
+        <p className="mt-3 text-muted-foreground">{t("contact_desc")}</p>
       </header>
 
       <div className="mt-12 grid lg:grid-cols-5 gap-6">
         {/* Contact info */}
         <div className="lg:col-span-2 space-y-4 animate-fade-up">
           {[
-            { icon: Mail, title: "Email", value: "hello@aifarm.app", link: "mailto:hello@aifarm.app" },
-            { icon: Phone, title: "Phone", value: "+91 98765 43210", link: "tel:+919876543210" },
-            { icon: MapPin, title: "Address", value: "Green Tech Park, Bengaluru, India 560001" },
+            { icon: Mail, title: t("contact_email"), value: "hello@aifarm.app", link: "mailto:hello@aifarm.app" },
+            { icon: Phone, title: t("contact_phone"), value: "+91 98765 43210", link: "tel:+919876543210" },
+            { icon: MapPin, title: t("contact_address"), value: "Green Tech Park, Bengaluru, India 560001" },
           ].map(c => (
             <a key={c.title} href={c.link ?? "#"} className="flex items-start gap-4 bg-card rounded-2xl p-5 border border-border hover:shadow-soft hover:-translate-y-0.5 transition-all">
               <div className="w-11 h-11 rounded-xl bg-secondary text-primary grid place-items-center shrink-0"><c.icon size={20}/></div>
@@ -52,27 +54,27 @@ function Contact() {
           ))}
           <div className="rounded-2xl overflow-hidden border border-border bg-gradient-to-br from-secondary to-accent p-8 text-center">
             <Leaf className="mx-auto text-primary animate-float" size={48} strokeWidth={1.4}/>
-            <p className="mt-3 text-sm text-primary-dark font-medium">Helping farmers grow smarter, every day.</p>
+            <p className="mt-3 text-sm text-primary-dark font-medium">{t("contact_slogan")}</p>
           </div>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="lg:col-span-3 bg-card rounded-3xl p-6 sm:p-8 border border-border shadow-soft space-y-5 animate-fade-up">
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label="Name" name="name" placeholder="Your full name" required/>
-            <Field label="Email" name="email" type="email" placeholder="you@example.com" required/>
+            <Field label={t("contact_name_label")} name="name" placeholder={t("contact_name_placeholder")} required/>
+            <Field label={t("contact_email_label")} name="email" type="email" placeholder={t("contact_email_placeholder")} required/>
           </div>
-          <Field label="Subject" name="subject" placeholder="What's this about?" required/>
+          <Field label={t("contact_subject_label")} name="subject" placeholder={t("contact_subject_placeholder")} required/>
           <div>
-            <label className="text-sm font-medium text-primary-dark">Message</label>
-            <textarea name="message" required rows={5} placeholder="Tell us how we can help…"
+            <label className="text-sm font-medium text-primary-dark">{t("contact_message_label")}</label>
+            <textarea name="message" required rows={5} placeholder={t("contact_message_placeholder")}
               className="mt-1.5 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition resize-none"/>
           </div>
           <button type="submit" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary-dark shadow-soft transition">
-            <Send size={16}/> Send Message
+            <Send size={16}/> {t("contact_send_btn")}
           </button>
           {sent && (
-            <p className="text-sm text-success font-medium animate-fade-up">✓ Message sent! We'll get back to you within 24 hours.</p>
+            <p className="text-sm text-success font-medium animate-fade-up">{t("contact_success")}</p>
           )}
         </form>
       </div>

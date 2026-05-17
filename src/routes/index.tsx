@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ScanLine, Sparkles, Cloud, Leaf, Camera, Bot, Pill, CloudSun, ShieldCheck, Languages, Smartphone, Zap, Award, HeartHandshake, BookOpen } from "lucide-react";
 import leafImage from "../assets/leaf.jpeg";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { t } = useTranslation();
   return (
     <>
       {/* Hero */}
@@ -26,20 +28,20 @@ function Home() {
         <div className="max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-20 grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full bg-secondary text-primary-dark px-4 py-1.5 text-xs font-semibold">
-              <Sparkles size={14} /> AI-Powered Farming
+              <Sparkles size={14} /> {t("hero_badge")}
             </span>
             <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-primary-dark text-left">
-              Smart AI Farming <span className="text-primary">Assistant</span>
+              {t("hero_title_part1")} <span className="text-primary">{t("hero_title_part2")}</span>
             </h1>
             <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed text-left">
-              Detect crop diseases using AI, get treatment suggestions, and weather-based farming advice instantly.
+              {t("hero_desc")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/scan" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition">
-                <ScanLine size={18} /> Scan Your Crop
+                <ScanLine size={18} /> {t("scan_crop_btn")}
               </Link>
               <a href="#how" className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-6 py-3 font-semibold hover:bg-secondary transition">
-                <BookOpen size={18} /> Learn More
+                <BookOpen size={18} /> {t("learn_more_btn")}
               </a>
             </div>
             <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
@@ -93,8 +95,8 @@ function Home() {
       {/* How it works */}
       <section id="how" className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark">How It Works</h2>
-          <p className="mt-3 text-muted-foreground">Four simple steps from leaf to insight.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark">{t("how_it_works")}</h2>
+          <p className="mt-3 text-muted-foreground">{t("how_it_works_desc")}</p>
         </div>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
@@ -119,8 +121,8 @@ function Home() {
       <section className="bg-secondary/40 py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark">Everything You Need</h2>
-            <p className="mt-3 text-muted-foreground">Powerful tools, designed simple.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark">{t("everything_you_need")}</h2>
+            <p className="mt-3 text-muted-foreground">{t("everything_you_need_desc")}</p>
           </div>
           <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -144,8 +146,8 @@ function Home() {
       {/* Why choose us */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark">Why Choose Us</h2>
-          <p className="mt-3 text-muted-foreground">Trusted by farmers, built with care.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark">{t("why_choose_us")}</h2>
+          <p className="mt-3 text-muted-foreground">{t("why_choose_us_desc")}</p>
         </div>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
@@ -168,10 +170,10 @@ function Home() {
           <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
           <Leaf className="mx-auto mb-4 opacity-90" size={40} />
-          <h2 className="text-3xl sm:text-4xl font-bold">Ready to Scan Your Crop?</h2>
-          <p className="mt-3 text-white/80 max-w-xl mx-auto">Get instant AI-powered diagnosis and grow smarter today.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold">{t("ready_to_scan")}</h2>
+          <p className="mt-3 text-white/80 max-w-xl mx-auto">{t("ready_to_scan_desc")}</p>
           <Link to="/scan" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-primary-dark px-7 py-3.5 font-semibold hover:-translate-y-0.5 transition shadow-lift">
-            <ScanLine size={18} /> Start AI Scan
+            <ScanLine size={18} /> {t("start_ai_scan")}
           </Link>
         </div>
       </section>
