@@ -6,7 +6,7 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB3_Jv7q24HRr7wdpUXuNJK7HZzmZ11NV0",
-  authDomain: "ai-farm-assis.firebaseapp.com",
+  authDomain: "farm-with-ai.netlify.app",
   projectId: "ai-farm-assis",
   storageBucket: "ai-farm-assis.firebasestorage.app",
   messagingSenderId: "352569427863",
