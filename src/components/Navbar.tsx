@@ -1,7 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { Leaf, Menu, X, Globe } from "lucide-react";
+import { Leaf, Menu, X, Globe, LogIn, LogOut, User } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/context/AuthContext";
+import { AuthModal } from "./AuthModal";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const languages = [
   { code: 'en', label: 'English' },
@@ -19,18 +28,21 @@ const languages = [
   { code: 'as', label: 'Assamese' }
 ];
 
-const links = [
-  { to: "/", label: "nav_home" },
-  { to: "/scan", label: "nav_scan" },
-  { to: "/contact", label: "nav_contact" },
-] as const;
-
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [mobileLangOpen, setMobileLangOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  const { isAuthenticated, user, logout } = useAuth();
+
+  const links = [
+    { to: "/", label: "nav_home" },
+    ...(isAuthenticated ? [{ to: "/scan", label: "nav_scan" }] : []),
+    { to: "/contact", label: "nav_contact" },
+  ] as const;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -52,86 +64,42 @@ export function Navbar() {
     setOpen(false);
   };
   return (
-    <header className="sticky top-0 z-50 backdrop-blur bg-background/80 border-b border-border/60 shadow-[0_2px_12px_-8px_rgba(27,94,32,0.25)]">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 font-display font-bold text-primary-dark">
-          <span className="grid place-items-center w-9 h-9 rounded-xl bg-secondary text-primary">
-            <Leaf size={20} />
-          </span>
-          <span className="text-lg">AI Farm Assistant</span>
-        </Link>
-        <div className="hidden md:flex items-center gap-1">
-          {links.map(l => (
-            <Link key={l.to} to={l.to}
-              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-primary-dark hover:bg-secondary transition"
-              activeProps={{ className: "px-4 py-2 rounded-full text-sm font-semibold text-primary-dark bg-secondary" }}
-              activeOptions={{ exact: true }}
-            >
-              {t(l.label)}
-            </Link>
-          ))}
-          <div className="relative" ref={dropdownRef}>
-            <button 
-              onClick={() => setLangOpen(!langOpen)}
-              className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70 hover:bg-secondary transition"
-            >
-              <Globe size={15} /> {(i18n.language || 'en').toUpperCase()}
-            </button>
-            {langOpen && (
-              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-border bg-card p-1 shadow-lg z-50 animate-fade-up">
-                {languages.map(lang => (
-                  <button
-                    key={lang.code}
-                    onClick={() => changeLanguage(lang.code)}
-                    className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
-                      (i18n.language || 'en') === lang.code 
-                        ? "bg-primary text-primary-foreground font-medium" 
-                        : "text-foreground/80 hover:bg-secondary"
-                    }`}
-                  >
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        <button onClick={() => setOpen(o => !o)} className="md:hidden p-2 rounded-lg hover:bg-secondary" aria-label="Menu">
-          {open ? <X size={22}/> : <Menu size={22}/>}
-        </button>
-      </nav>
-      {open && (
-        <div className="md:hidden border-t border-border bg-background animate-fade-up">
-          <div className="px-4 py-3 flex flex-col gap-1">
+    <>
+      <header className="sticky top-0 z-50 backdrop-blur bg-background/80 border-b border-border/60 shadow-[0_2px_12px_-8px_rgba(27,94,32,0.25)]">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 font-display font-bold text-primary-dark">
+            <span className="grid place-items-center w-9 h-9 rounded-xl bg-secondary text-primary">
+              <Leaf size={20} />
+            </span>
+            <span className="text-lg">AI Farm Assistant</span>
+          </Link>
+          <div className="hidden md:flex items-center gap-1">
             {links.map(l => (
-              <Link key={l.to} to={l.to} onClick={() => setOpen(false)}
-                className="px-4 py-3 rounded-xl text-sm font-medium hover:bg-secondary"
-                activeProps={{ className: "px-4 py-3 rounded-xl text-sm font-semibold bg-secondary text-primary-dark" }}
-                activeOptions={{ exact: true }}>
+              <Link key={l.to} to={l.to}
+                className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-primary-dark hover:bg-secondary transition"
+                activeProps={{ className: "px-4 py-2 rounded-full text-sm font-semibold text-primary-dark bg-secondary" }}
+                activeOptions={{ exact: true }}
+              >
                 {t(l.label)}
               </Link>
             ))}
-            
-            <div className="px-4 py-3 border-t border-border mt-2">
+            <div className="relative" ref={dropdownRef}>
               <button 
-                onClick={() => setMobileLangOpen(!mobileLangOpen)}
-                className="w-full flex items-center justify-between rounded-xl text-sm font-medium hover:bg-secondary transition"
+                onClick={() => setLangOpen(!langOpen)}
+                className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70 hover:bg-secondary transition"
               >
-                <div className="flex items-center gap-2 text-foreground/80">
-                  <Globe size={18} /> Language ({(i18n.language || 'en').toUpperCase()})
-                </div>
+                <Globe size={15} /> {(i18n.language || 'en').toUpperCase()}
               </button>
-              
-              {mobileLangOpen && (
-                <div className="mt-3 grid grid-cols-2 gap-2">
+              {langOpen && (
+                <div className="absolute right-0 mt-2 w-48 rounded-xl border border-border bg-card p-1 shadow-lg z-50 animate-fade-up">
                   {languages.map(lang => (
                     <button
                       key={lang.code}
                       onClick={() => changeLanguage(lang.code)}
-                      className={`text-left px-3 py-2.5 text-sm rounded-lg transition ${
+                      className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
                         (i18n.language || 'en') === lang.code 
                           ? "bg-primary text-primary-foreground font-medium" 
-                          : "text-foreground/80 bg-secondary/50 hover:bg-secondary"
+                          : "text-foreground/80 hover:bg-secondary"
                       }`}
                     >
                       {lang.label}
@@ -140,9 +108,119 @@ export function Navbar() {
                 </div>
               )}
             </div>
+
+            {/* Auth Button */}
+            <div className="ml-4 pl-4 border-l border-border">
+              {isAuthenticated ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 rounded-full bg-secondary text-primary-dark px-3 py-1.5 text-sm font-medium hover:bg-primary/20 transition">
+                      <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground grid place-items-center text-xs">
+                        {user?.name.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="max-w-[100px] truncate">{user?.name}</span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48 rounded-xl">
+                    <DropdownMenuItem className="gap-2 cursor-pointer">
+                      <User size={16} /> Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="gap-2 text-destructive focus:text-destructive cursor-pointer" onClick={logout}>
+                      <LogOut size={16} /> Log out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <button
+                  onClick={() => setAuthModalOpen(true)}
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary-dark transition shadow-soft"
+                >
+                  <LogIn size={16} /> Log In
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </header>
+          <button onClick={() => setOpen(o => !o)} className="md:hidden p-2 rounded-lg hover:bg-secondary" aria-label="Menu">
+            {open ? <X size={22}/> : <Menu size={22}/>}
+          </button>
+        </nav>
+        {open && (
+          <div className="md:hidden border-t border-border bg-background animate-fade-up">
+            <div className="px-4 py-3 flex flex-col gap-1">
+              {/* Mobile Auth Status */}
+              <div className="mb-2 pb-2 border-b border-border">
+                {isAuthenticated ? (
+                  <div className="flex items-center justify-between px-2 py-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground grid place-items-center font-bold">
+                        {user?.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold">{user?.name}</p>
+                        <p className="text-xs text-muted-foreground">{user?.email}</p>
+                      </div>
+                    </div>
+                    <button onClick={logout} className="p-2 text-destructive hover:bg-destructive/10 rounded-xl transition">
+                      <LogOut size={18} />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      setAuthModalOpen(true);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-dark transition"
+                  >
+                    <LogIn size={18} /> Log In / Sign Up
+                  </button>
+                )}
+              </div>
+
+              {links.map(l => (
+                <Link key={l.to} to={l.to} onClick={() => setOpen(false)}
+                  className="px-4 py-3 rounded-xl text-sm font-medium hover:bg-secondary"
+                  activeProps={{ className: "px-4 py-3 rounded-xl text-sm font-semibold bg-secondary text-primary-dark" }}
+                  activeOptions={{ exact: true }}>
+                  {t(l.label)}
+                </Link>
+              ))}
+              
+              <div className="px-4 py-3 border-t border-border mt-2">
+                <button 
+                  onClick={() => setMobileLangOpen(!mobileLangOpen)}
+                  className="w-full flex items-center justify-between rounded-xl text-sm font-medium hover:bg-secondary transition"
+                >
+                  <div className="flex items-center gap-2 text-foreground/80">
+                    <Globe size={18} /> Language ({(i18n.language || 'en').toUpperCase()})
+                  </div>
+                </button>
+                
+                {mobileLangOpen && (
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    {languages.map(lang => (
+                      <button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`text-left px-3 py-2.5 text-sm rounded-lg transition ${
+                          (i18n.language || 'en') === lang.code 
+                            ? "bg-primary text-primary-foreground font-medium" 
+                            : "text-foreground/80 bg-secondary/50 hover:bg-secondary"
+                        }`}
+                      >
+                        {lang.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      <AuthModal isOpen={authModalOpen} onOpenChange={setAuthModalOpen} />
+    </>
   );
 }

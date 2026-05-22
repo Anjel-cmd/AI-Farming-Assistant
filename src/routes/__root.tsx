@@ -8,6 +8,8 @@ import {
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import type { AuthContextType } from "@/context/AuthContext";
+import { Toaster } from "sonner";
 
 function NotFoundComponent() {
   return (
@@ -35,7 +37,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient; auth: AuthContextType }>()({
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
@@ -51,6 +53,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <Toaster richColors position="top-right" />
       </div>
     </QueryClientProvider>
   );

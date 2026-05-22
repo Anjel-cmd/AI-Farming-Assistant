@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import {
   Upload,
@@ -34,6 +34,11 @@ import {
 } from "../services/weatherService.js";
 
 export const Route = createFileRoute("/scan")({
+  beforeLoad: ({ context }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({ to: "/" });
+    }
+  },
   head: () => ({
     meta: [
       { title: "Scan Your Crop — AI Farm Assistant" },
