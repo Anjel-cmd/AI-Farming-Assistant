@@ -32,11 +32,10 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [mobileLangOpen, setMobileLangOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const dropdownRef = useRef<HTMLDivElement>(null);
   
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, logout, authModalOpen, setAuthModalOpen } = useAuth();
 
   const links = [
     { to: "/", label: "nav_home" },

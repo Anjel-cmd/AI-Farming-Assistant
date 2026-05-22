@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ScanLine, Sparkles, Cloud, Leaf, Camera, Bot, Pill, CloudSun, ShieldCheck, Languages, Smartphone, Zap, Award, HeartHandshake, BookOpen } from "lucide-react";
 import leafImage from "../assets/leaf.jpeg";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/context/AuthContext";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,6 +18,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t } = useTranslation();
+  const { isAuthenticated, setAuthModalOpen } = useAuth();
   return (
     <>
       {/* Hero */}
@@ -37,9 +39,15 @@ function Home() {
               {t("hero_desc")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/scan" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition">
-                <ScanLine size={18} /> {t("scan_crop_btn")}
-              </Link>
+              {isAuthenticated ? (
+                <Link to="/scan" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition">
+                  <ScanLine size={18} /> {t("scan_crop_btn")}
+                </Link>
+              ) : (
+                <button onClick={() => setAuthModalOpen(true)} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-soft hover:bg-primary-dark hover:-translate-y-0.5 transition">
+                  <ScanLine size={18} /> {t("scan_crop_btn")}
+                </button>
+              )}
               <a href="#how" className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-6 py-3 font-semibold hover:bg-secondary transition">
                 <BookOpen size={18} /> {t("learn_more_btn")}
               </a>
@@ -172,9 +180,15 @@ function Home() {
           <Leaf className="mx-auto mb-4 opacity-90" size={40} />
           <h2 className="text-3xl sm:text-4xl font-bold">{t("ready_to_scan")}</h2>
           <p className="mt-3 text-white/80 max-w-xl mx-auto">{t("ready_to_scan_desc")}</p>
-          <Link to="/scan" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-primary-dark px-7 py-3.5 font-semibold hover:-translate-y-0.5 transition shadow-lift">
-            <ScanLine size={18} /> {t("start_ai_scan")}
-          </Link>
+          {isAuthenticated ? (
+            <Link to="/scan" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-primary-dark px-7 py-3.5 font-semibold hover:-translate-y-0.5 transition shadow-lift">
+              <ScanLine size={18} /> {t("start_ai_scan")}
+            </Link>
+          ) : (
+            <button onClick={() => setAuthModalOpen(true)} className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-primary-dark px-7 py-3.5 font-semibold hover:-translate-y-0.5 transition shadow-lift">
+              <ScanLine size={18} /> {t("start_ai_scan")}
+            </button>
+          )}
         </div>
       </section>
     </>

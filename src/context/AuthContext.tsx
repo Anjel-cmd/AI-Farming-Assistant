@@ -22,6 +22,8 @@ export interface AuthContextType {
   loginWithGoogle: () => Promise<void>;
   logout: () => void;
   signup: (email: string, name: string, password?: string) => Promise<void>;
+  authModalOpen: boolean;
+  setAuthModalOpen: (open: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -30,6 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -107,7 +110,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, loginWithGoogle, logout, signup }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, loginWithGoogle, logout, signup, authModalOpen, setAuthModalOpen }}>
       {children}
     </AuthContext.Provider>
   );
